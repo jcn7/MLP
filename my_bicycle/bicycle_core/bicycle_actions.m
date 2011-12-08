@@ -58,7 +58,7 @@ function [actions, mapaction] = bicycle_actions()
   %             +T  -d;
   %             +T   0;
   %             +T  +d
-  %         ];
+  %          ];
   
   actions = size(mapaction,1);
   
