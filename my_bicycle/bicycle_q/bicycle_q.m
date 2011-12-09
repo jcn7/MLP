@@ -24,7 +24,6 @@ for epi = 1:maxepi
     while ~endsim
         [sprime, reward, endsim] = bicycle_simulator(state, action);
         features = computeFeatures(state, order);
-
         xpos(steps+1) = sprime(10);
         ypos(steps+1) = sprime(11);
         
@@ -61,10 +60,12 @@ for epi = 1:maxepi
 
     % draw the trejectory of the bike, to be moved into seperate function
 	% maybe be more fancy with the ploting.
-	line(xpos, ypos);
-	title('trajectory');
-	drawnow
+	%line(xpos, ypos);
+	%title('trajectory');
+	%drawnow
 
+    bicycle_draw_trajectory(xpos, ypos);
+    
     %plot(lcurve);
 end;
 

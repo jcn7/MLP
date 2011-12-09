@@ -25,7 +25,7 @@ function [total_r, steps, Q] = episode(maxsteps, Q, E, alpha, gamma, ...
 
 		[new_full_s, r, endsim] = bicycle_simulator(full_s, action);
 
-        disp(r);
+        %disp(r);
         
 		[sip, sp] = discretize_state(new_full_s(1:5), statelst);
 		actionp = next_action(Q,sip,epsilon);
@@ -37,11 +37,7 @@ function [total_r, steps, Q] = episode(maxsteps, Q, E, alpha, gamma, ...
 		s = sip;
 
 		steps = steps + 1;
-
-		% draw the trejectory of the bike, to be moved into seperate function
-		% maybe be more fancy with the ploting.
-		line(xpos, ypos);
-		title('trajectory');
-		drawnow
 	end;
+    %draw the trajectory once
+    bicycle_draw_trajectory(xpos, ypos);
 end

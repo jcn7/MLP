@@ -1,25 +1,25 @@
-clear all
+%clear all
 clc
 clf;
 
-% global TxtEpisode TxtSteps goal f1 f2 grafica
-global grafica; 
-
-f1 = subplot(2,1,1);
-box off
-
-f2 = subplot(2,1,2);
-grafica = false;
-
-P2 = ['setgrafica();'];
-set(gcf,'name','RPI with a Scara Manipulator Robot');
-set(gcf,'Color','w')
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-grid off                        % turns on grid
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-set(gco,'BackingStore','off')  % for realtime inverse kinematics
-%set(gco,'Units','data')
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% % global TxtEpisode TxtSteps goal f1 f2 grafica
+% global grafica; 
+% 
+% f1 = subplot(2,1,1);
+% box off
+% 
+% f2 = subplot(2,1,2);
+% grafica = false;
+% 
+% P2 = ['setgrafica();'];
+% set(gcf,'name','RPI with a Scara Manipulator Robot');
+% set(gcf,'Color','w')
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% grid off                        % turns on grid
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% set(gco,'BackingStore','off')  % for realtime inverse kinematics
+% %set(gco,'Units','data')
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 rep = 1;
 
@@ -85,18 +85,18 @@ for r = 1:rep
                 flag = true;
                 best_steps = allstep1(r,i);
                 best_policy = allpol1(r,i);
-                bicycle_plot_trajectory(best_policy, best_steps, 1);
+                %bicycle_plot_trajectory(best_policy, best_steps, 1);
             else flag = false;
             end;
         end;
         
         xpoints(i) = i-1;
         ypoints(i) = allstep1(r,i);     
-        figure(1); subplot(3,1,3); 
-        plot(xpoints, ypoints, 'LineWidth', 2);
-        title(['RPI Learning Episode: ', int2str(i), ' Best: ', int2str(best_steps), ' Sampes: ', int2str(length(sample))], 'FontSize', 14)
-        xlabel('Episodes')
-        ylabel('Steps')
+%         figure(1); subplot(3,1,3); 
+%         plot(xpoints, ypoints, 'LineWidth', 2);
+%         title(['RPI Learning Episode: ', int2str(i), ' Best: ', int2str(best_steps), ' Sampes: ', int2str(length(sample))], 'FontSize', 14)
+%         xlabel('Episodes')
+%         ylabel('Steps')
        drawnow
         
     end;

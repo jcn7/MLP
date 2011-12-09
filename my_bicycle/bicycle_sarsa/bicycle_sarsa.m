@@ -1,4 +1,4 @@
-function bicycle_sarsa(iter, maxEpi)
+function lcurve = bicycle_sarsa(maxEpi)
 
 	gamma = 0.99;
 	alpha = 0.5;
@@ -15,7 +15,7 @@ function bicycle_sarsa(iter, maxEpi)
     Q = zeros(nstates, nactions);
     E = zeros(nstates, nactions);  %Eligibility matrix
 
-    lcurve = zeros(maxEpi);
+    lcurve = zeros(maxEpi,1);
 
     for i=1:maxEpi
     	[tr, steps, Q] = episode(maxsteps, Q, E, alpha, gamma, ...
@@ -26,8 +26,9 @@ function bicycle_sarsa(iter, maxEpi)
     	lcurve(i) = steps;
     end;
 
-    plot(mean(lcurve));
-    xlabel('Episodes');
-    ylabel('Steps');
-    title('learning curve plot');
+%     figure;
+%     plot(mean(lcurve));
+%     xlabel('Episodes');
+%     ylabel('Steps');
+%     title('learning curve plot');
 end

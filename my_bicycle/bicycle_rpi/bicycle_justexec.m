@@ -49,6 +49,9 @@ function [steps, totdrew, toturew, goal, crash, closestdistance, ...
   stepstogoal = inf;
   mydiscount = 1;
   
+  xpos = [];
+  ypos = [];
+  
   %%% Run the episode
   while ( (steps < maxsteps) & (~crash) )
     
@@ -69,6 +72,9 @@ function [steps, totdrew, toturew, goal, crash, closestdistance, ...
     %%% Simulate
     [state, reward, crash] = bicycle_simulator(state, action);
     
+    xpos(steps+1) = state(10);
+    ypos(steps+1) = state(11);
+    
     %%% Update the total reward(s)
     totdrew = totdrew + mydiscount * reward;
     mydiscount = mydiscount * policy.discount;
@@ -79,6 +85,7 @@ function [steps, totdrew, toturew, goal, crash, closestdistance, ...
     
   end
   
+  bicycle_draw_trajectory(xpos,ypos);
   
   closestdistance = round(closestdistance*100)/100;
   %if stepstogoal~=inf

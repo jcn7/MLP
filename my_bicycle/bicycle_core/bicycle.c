@@ -264,7 +264,7 @@ void bicycle(double *nextstate, double *reward, double *endsim,
    
    if (fabs(omega) > (mypi/15)) { /* the bike has fallen over */
     *endsim =  1.0;
-   /* *reward = -100.0;  */ //ME 
+    *reward = -1.0;   //jleahey
     /* a good place to print some info to a file or the screen */  
   } else {
     *endsim = 0.0;
