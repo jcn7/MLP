@@ -16,7 +16,7 @@ function [total_r, steps, Q] = episode(maxsteps, Q, E, alpha, gamma, ...
 	xpos = []; 
 	ypos = [];
 
-	while (~endsim | steps < maxsteps)
+	while (~endsim && steps < maxsteps)
 		t = actions(action, 1);
 		d = actions(action, 2);
 
@@ -25,8 +25,10 @@ function [total_r, steps, Q] = episode(maxsteps, Q, E, alpha, gamma, ...
 
 		[new_full_s, r, endsim] = bicycle_simulator(full_s, action);
 
+        disp(r);
+        
 		[sip, sp] = discretize_state(new_full_s(1:5), statelst);
-		actionp = next_action(Q,sip,epsilon)
+		actionp = next_action(Q,sip,epsilon);
 
 		[Q,E] = update_sarsa_lambda(s, action, r, sip, actionp, Q, E, alpha, gamma, lambda);
 
