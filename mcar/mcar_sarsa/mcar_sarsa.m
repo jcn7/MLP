@@ -1,13 +1,16 @@
-function lcurve = bicycle_sarsa(maxEpi)
+function lcurve = mcar_sarsa(maxEpi)
+    global grafica;
 
 	gamma = 0.99;
 	alpha = 0.5;
     epsilon = .01;
     lambda = 0.95;
 
-    maxsteps = 1000;
+    maxsteps = 2000;
     statelist = state_list();
-    [numactions, actions] = bicycle_actions();
+    [numactions, actions] = mcar_actions();
+
+    grafica = false;
 
     nstates = size(statelist,1);
     nactions = numactions;
@@ -26,9 +29,9 @@ function lcurve = bicycle_sarsa(maxEpi)
     	lcurve(i) = steps;
     end;
 
-%     figure;
-%     plot(mean(lcurve));
-%     xlabel('Episodes');
-%     ylabel('Steps');
-%     title('learning curve plot');
+     figure;
+     plot(lcurve);
+     xlabel('Episodes');
+     ylabel('Steps');
+     title('learning curve plot');
 end

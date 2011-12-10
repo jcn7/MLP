@@ -1,12 +1,11 @@
 function [total_r, steps, Q] = episode(maxsteps, Q, E, alpha, gamma, ...
     lambda, epsilon, statelst, actions)
 
-	[full_s, r, endsim] = bicycle_simulator;
+	[full_s, r, endsim] = mcar_graphics_simulator();
 
 	steps = 0;
 	total_r = 0;
-
-	s = discretize_state(full_s(1:5), statelst);
+	s = discretize_state(full_s, statelst);
 
 	action = next_action(Q,s,epsilon);
 
@@ -17,17 +16,10 @@ function [total_r, steps, Q] = episode(maxsteps, Q, E, alpha, gamma, ...
 	ypos = [];
 
 	while (~endsim && steps < maxsteps)
-		t = actions(action, 1);
-		d = actions(action, 2);
 
-		xpos(steps+1) = full_s(10);
-		ypos(steps+1) = full_s(11);
+		[new_full_s, r, endsim] = mcar_graphics_simulator(full_s, action);
 
-		[new_full_s, r, endsim] = bicycle_simulator(full_s, action);
-
-        %disp(r);
-        
-		[sip, sp] = discretize_state(new_full_s(1:5), statelst);
+		[sip, sp] = discretize_state(new_full_s, statelst);
 		actionp = next_action(Q,sip,epsilon);
 
 		[Q,E] = update_sarsa_lambda(s, action, r, sip, actionp, Q, E, alpha, gamma, lambda);
@@ -38,6 +30,4 @@ function [total_r, steps, Q] = episode(maxsteps, Q, E, alpha, gamma, ...
 
 		steps = steps + 1;
 	end;
-    %draw the trajectory once
-    bicycle_draw_trajectory(xpos, ypos);
 end

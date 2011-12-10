@@ -1,31 +1,29 @@
-function [lcurve, w] = bicycle_q(maxepi)
+function [data, w] = mcar_q(maxepi, graphic)
 
-[actionIndex, actionMap] = bicycle_actions();
-gamma = .95;  % the discount
+global grafica;
+
+[numaction, actionMap] = bicycle_actions();
+
+gamma = 1;  % the discount
 alpha = .01;   % learning rate
-epsilon = .05;
-numaction = length(actionMap); % number of possible actions
+epsilon = 0;
 order = 5;
 n = (order+1)^2;         % number of features
+grafica = graphic;
 
 w = zeros(numaction, n);
-lcurve = zeros(maxepi, 1);
+data = zeros(maxepi, 1);
 
 for epi = 1:maxepi
     % initial state
-    [state, ~, endsim] = bicycle_simulator();   
+    [state, ~, endsim] = mcar_graphics_simulator();   
     steps = 0;
     action = randi(3,1); % initial action is random
     
-    xpos = [];
-    ypos = [];
-
     % one episode
     while ~endsim
-        [sprime, reward, endsim] = bicycle_simulator(state, action);
+        [sprime, reward, endsim] = mcar_graphics_simulator(state, actionMap(action));
         features = computeFeatures(state, order);
-        xpos(steps+1) = sprime(10);
-        ypos(steps+1) = sprime(11);
         
         % compute temporal difference error
         tde = reward - sum(w(action,:) .* features);
@@ -53,20 +51,10 @@ for epi = 1:maxepi
         state = sprime;
         steps = steps + 1;
     end;    
-    lcurve(epi) = steps;
+    data(epi) = steps;
     toPrint = strcat('episode: ', int2str(epi), ' steps: ', int2str(steps), '\n');  
     fprintf(toPrint);
-
-
-    % draw the trejectory of the bike, to be moved into seperate function
-	% maybe be more fancy with the ploting.
-	%line(xpos, ypos);
-	%title('trajectory');
-	%drawnow
-
-    bicycle_draw_trajectory(xpos, ypos);
-    
-    %plot(lcurve);
+    plot(data);
 end;
-
 end
+
